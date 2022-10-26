@@ -1,3 +1,5 @@
+use std::env;
+
 fn float_loop(start: f64, threshold: f64, step_size: f64) -> impl Iterator<Item = f64> {
     std::iter::successors(Some(start), move |&prev| {
         let next = prev + step_size;
@@ -26,6 +28,16 @@ fn petration(a: f64, b: f64) -> f64 {
 }
 
 fn main() {
-    let output = petration(2.0, 2.0).to_string();
-    println!("Result: {}", output);
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 3 {
+        return println!("Usage: rust-pentation <a: f64> <b: f64>")
+    }
+
+    let a = args[1].parse::<f64>().unwrap();
+    let b = args[2].parse::<f64>().unwrap();
+    
+
+    let output = petration(a, b).to_string();
+
+    println!("{}[5]{} = {}", a, b, output);
 }
